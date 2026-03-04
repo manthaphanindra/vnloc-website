@@ -1,124 +1,151 @@
 /**
  * VNLOC — main.js
- * Navigation, scroll-reveal, Lego tower animation, misc UX
+ * Nav, mobile menu, card reveals, form handler
  */
 'use strict';
 
-// ─── Nav: scroll state + mobile toggle ──────────────────────
-(function initNav() {
-  const nav    = document.getElementById('nav');
-  const burger = document.getElementById('navBurger');
-  const links  = document.getElementById('navLinks');
-
+// ─── Nav solid on scroll ─────────────────────────────────────
+(function () {
+  const nav = document.getElementById('nav');
   if (!nav) return;
-
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 40);
+    nav.classList.toggle('solid', window.scrollY > 20);
   }, { passive: true });
+})();
 
-  burger?.addEventListener('click', () => {
-    links.classList.toggle('open');
-    burger.classList.toggle('active');
+// ─── Mobile burger ───────────────────────────────────────────
+(function () {
+  const burger = document.getElementById('burger');
+  const links  = document.getElementById('navlinks');
+  if (!burger || !links) return;
+
+  burger.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    burger.setAttribute('aria-expanded', open);
+    const spans = burger.querySelectorAll('span');
+    if (open) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px,5px)';
+      spans[1].style.opacity   = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px,-5px)';
+    } else {
+      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
+    }
   });
 
-  // Close menu on link click
-  links?.querySelectorAll('a').forEach(a => {
+  links.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       links.classList.remove('open');
-      burger?.classList.remove('active');
+      burger.setAttribute('aria-expanded', 'false');
+      burger.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
     });
   });
+})();
 
-  // Active link highlight on scroll
-  const sections = document.querySelectorAll('section[id]');
-  const navAnchors = links?.querySelectorAll('a[href^="#"]') ?? [];
+// ─── Smooth scroll for anchor links ──────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const id = a.getAttribute('href').slice(1);
+    const el = document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ─── Story card scroll reveal ─────────────────────────────────
+(function () {
+  const cards = document.querySelectorAll('.card');
+  if (!cards.length) return;
+
+  // Add initial hidden state via style
+  const style = document.createElement('style');
+  style.textContent = `
+    .card { opacity: 0; transform: translateY(32px); transition: opacity .75s ease, transform .75s ease; }
+    .card.v  { opacity: 1; transform: none; }
+  `;
+  document.head.appendChild(style);
 
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) {
-        navAnchors.forEach(a => {
-          a.classList.toggle('nav-active', a.getAttribute('href') === '#' + e.target.id);
-        });
+        e.target.classList.add('v');
+        io.unobserve(e.target);
       }
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0.1 });
 
-  sections.forEach(s => io.observe(s));
+  cards.forEach(c => io.observe(c));
 })();
 
-// ─── Scroll-reveal ──────────────────────────────────────────
-(function initReveal() {
-  const items = document.querySelectorAll('.reveal');
-  if (!items.length) return;
+// ─── Services & values card stagger ──────────────────────────
+(function () {
+  const style = document.createElement('style');
+  style.textContent = `
+    .svc-g-card, .val-card { opacity: 0; transform: translateY(20px);
+      transition: opacity .5s ease, transform .5s ease; }
+    .svc-g-card.v, .val-card.v { opacity: 1; transform: none; }
+  `;
+  document.head.appendChild(style);
 
   const io = new IntersectionObserver(entries => {
-    entries.forEach((e, i) => {
+    entries.forEach(e => {
       if (!e.isIntersecting) return;
-
-      // Stagger siblings within same parent
-      const siblings = [...e.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+      const siblings = [...e.target.parentElement.children];
       const idx = siblings.indexOf(e.target);
-
-      setTimeout(() => {
-        e.target.classList.add('visible');
-      }, Math.min(idx * 80, 400));
-
+      setTimeout(() => e.target.classList.add('v'), idx * 60);
       io.unobserve(e.target);
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1 });
 
-  items.forEach(el => io.observe(el));
+  document.querySelectorAll('.svc-g-card, .val-card').forEach(el => io.observe(el));
 })();
 
-// ─── Lego tower animation (About section) ───────────────────
-(function initLegoTower() {
-  const tower = document.querySelector('.lego-tower');
-  if (!tower) return;
+// ─── Impact flow animation ────────────────────────────────────
+(function () {
+  const flow = document.querySelector('.impact-flow');
+  if (!flow) return;
+  const style = document.createElement('style');
+  style.textContent = `
+    .if-node, .if-arrow { opacity: 0; transform: translateX(-16px);
+      transition: opacity .6s ease, transform .6s ease; }
+    .impact-flow.v .if-node, .impact-flow.v .if-arrow {
+      opacity: 1; transform: none; }
+    .impact-flow.v .if-node:nth-child(1) { transition-delay: 0s; }
+    .impact-flow.v .if-arrow:nth-child(2) { transition-delay: .15s; }
+    .impact-flow.v .if-node:nth-child(3) { transition-delay: .3s; }
+    .impact-flow.v .if-arrow:nth-child(4) { transition-delay: .45s; }
+    .impact-flow.v .if-node:nth-child(5) { transition-delay: .6s; }
+  `;
+  document.head.appendChild(style);
 
   const io = new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) {
-      tower.classList.add('animated');
-      io.disconnect();
-    }
+    if (entries[0].isIntersecting) { flow.classList.add('v'); io.disconnect(); }
   }, { threshold: 0.3 });
-
-  io.observe(tower);
+  io.observe(flow);
 })();
 
-// ─── Services card: stagger reveal with data-index delay ────
-(function initServicesStagger() {
-  const cards = document.querySelectorAll('.svc-card');
-  cards.forEach(card => {
-    const idx = parseInt(card.dataset.index ?? 0, 10);
-    card.style.transitionDelay = `${idx * 60}ms`;
-  });
-})();
-
-// ─── Contact form ────────────────────────────────────────────
-(function initForm() {
+// ─── Contact form ─────────────────────────────────────────────
+(function () {
   const form = document.getElementById('contactForm');
   if (!form) return;
 
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
     const btn = form.querySelector('button[type=submit]');
-    const action = form.getAttribute('action') ?? '';
+    const action = form.getAttribute('action') || '';
 
-    // If formspree not configured, use mailto fallback
+    // Fallback to mailto if formspree not configured
     if (action.includes('your-form-id')) {
-      e.preventDefault();
-      const name    = form.name?.value ?? '';
-      const email   = form.email?.value ?? '';
-      const company = form.company?.value ?? '';
-      const message = form.message?.value ?? '';
-
-      const subject = encodeURIComponent(`VNLOC Enquiry from ${name}${company ? ' — ' + company : ''}`);
-      const body    = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\n${message}`);
-      window.location.href = `mailto:info@vnloc.com.au?subject=${subject}&body=${body}`;
+      const name    = form.name?.value    || '';
+      const email   = form.email?.value   || '';
+      const company = form.company?.value || '';
+      const msg     = form.message?.value || '';
+      const sub = encodeURIComponent(`VNLOC Enquiry — ${name}${company ? ' / ' + company : ''}`);
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\n${msg}`);
+      window.location.href = `mailto:info@vnloc.com.au?subject=${sub}&body=${body}`;
       return;
     }
 
-    // Formspree submission
-    e.preventDefault();
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
@@ -128,63 +155,14 @@
         body: new FormData(form),
         headers: { Accept: 'application/json' },
       });
-
       if (res.ok) {
         btn.textContent = 'Message Sent ✓';
         btn.style.background = '#00A650';
         form.reset();
-      } else {
-        throw new Error();
-      }
+      } else throw new Error();
     } catch {
       btn.textContent = 'Error — try email';
       btn.disabled = false;
     }
   });
 })();
-
-// ─── Smooth scroll polyfill for older Safari ─────────────────
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1);
-    const target = document.getElementById(id);
-    if (!target) return;
-    e.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// ─── Cursor glow effect on hero ──────────────────────────────
-(function initCursorGlow() {
-  const hero = document.querySelector('.hero');
-  if (!hero || window.matchMedia('(hover: none)').matches) return;
-
-  const glow = document.createElement('div');
-  glow.style.cssText = [
-    'position:absolute',
-    'width:300px', 'height:300px',
-    'border-radius:50%',
-    'background:radial-gradient(circle,rgba(245,195,0,.06) 0%,transparent 70%)',
-    'pointer-events:none',
-    'transform:translate(-50%,-50%)',
-    'transition:left .15s ease,top .15s ease',
-    'z-index:1',
-  ].join(';');
-  hero.appendChild(glow);
-
-  hero.addEventListener('mousemove', e => {
-    const rect = hero.getBoundingClientRect();
-    glow.style.left = (e.clientX - rect.left) + 'px';
-    glow.style.top  = (e.clientY - rect.top)  + 'px';
-  });
-})();
-
-// ─── Burger animation CSS ─────────────────────────────────────
-const burgerStyle = document.createElement('style');
-burgerStyle.textContent = `
-  .nav-burger.active span:nth-child(1){ transform:rotate(45deg) translate(5px,5px); }
-  .nav-burger.active span:nth-child(2){ opacity:0; }
-  .nav-burger.active span:nth-child(3){ transform:rotate(-45deg) translate(5px,-5px); }
-  .nav-links a.nav-active { color: var(--gold); }
-`;
-document.head.appendChild(burgerStyle);

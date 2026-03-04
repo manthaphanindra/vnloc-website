@@ -4,487 +4,366 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>VNLOC — We Unlock Value</title>
-  <meta name="description" content="VNLOC delivers advanced analytics, Industrial AI, and digital technologies for the industrial sector. Founded in Western Australia." />
-
+  <meta name="description" content="VNLOC delivers advanced analytics, Industrial AI, and digital technologies for the mining and industrial sector. Founded in Western Australia." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
-  <!-- ============ NAVIGATION ============ -->
-  <nav class="nav" id="nav">
+  <!-- Fixed 3D canvas — always behind everything -->
+  <canvas id="c"></canvas>
+
+  <!-- ───── NAV ───── -->
+  <nav id="nav">
     <div class="nav-inner">
       <a href="#hero" class="nav-logo">
         <img src="VNLOC_LOGO.png" alt="VNLOC" />
       </a>
-      <button class="nav-burger" id="navBurger" aria-label="Toggle menu">
-        <span></span><span></span><span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#values">Values</a></li>
-        <li><a href="#impact">Impact</a></li>
-        <li><a href="#contact" class="nav-cta">Contact</a></li>
+      <button id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+      <ul id="navlinks">
+        <li><a href="#s-about">About</a></li>
+        <li><a href="#s-services">Services</a></li>
+        <li><a href="#s-values">Values</a></li>
+        <li><a href="#s-impact">Impact</a></li>
+        <li><a href="#s-contact" class="nav-pill">Contact</a></li>
       </ul>
     </div>
   </nav>
 
-  <!-- ============ HERO ============ -->
-  <section class="hero" id="hero">
-    <canvas id="legoCanvas"></canvas>
-    <div class="hero-overlay"></div>
+  <!-- ───── SCROLL STORY ───── -->
+  <main id="story">
 
-    <div class="hero-content">
-      <div class="hero-badge reveal-hero">Industrial AI &amp; Analytics</div>
-      <h1 class="hero-h1 reveal-hero">
-        <span>We</span>
-        <span class="gold">Unlock</span>
-        <span>Value</span>
-      </h1>
-      <p class="hero-sub reveal-hero">Advanced Analytics · Industrial AI · Digital Innovation</p>
-      <div class="hero-btns reveal-hero">
-        <a href="#services" class="btn btn-gold">Explore Services</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
-      </div>
-    </div>
-
-    <div class="hero-scroll">
-      <div class="scroll-track"></div>
-      <span>Scroll</span>
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="about section" id="about">
-    <div class="container">
-      <div class="about-grid">
-
-        <div class="about-text">
-          <span class="tag reveal">About VNLOC</span>
-          <h2 class="h2 reveal">Engineering meets<br><span class="gold">Digital Innovation</span></h2>
-          <p class="body-lg reveal">
-            VNLOC is a WA-made business delivering inclusive, practical, and high-impact
-            technology solutions for the industrial sector. Founded by a seasoned mining engineer
-            and a data science leader, we sit at the intersection of <strong>domain expertise and digital innovation</strong>.
-          </p>
-          <p class="body-md reveal">
-            As part of our purpose-led model, 2% of the value from every contract is directed
-            toward nominated charities and community development initiatives.
-          </p>
-          <div class="stats reveal">
-            <div class="stat">
-              <div class="stat-n">9+</div>
-              <div class="stat-l">Service Areas</div>
-            </div>
-            <div class="stat">
-              <div class="stat-n accent-red">2%</div>
-              <div class="stat-l">For Community</div>
-            </div>
-            <div class="stat">
-              <div class="stat-n">WA</div>
-              <div class="stat-l">Based &amp; Proud</div>
-            </div>
-          </div>
+    <!-- 0 — HERO -->
+    <section class="ss" id="hero" style="height:100vh">
+      <div class="card card-center card-hero">
+        <span class="badge">Industrial AI &amp; Analytics · Perth, WA</span>
+        <h1 class="hero-h1">
+          <span>We</span>
+          <span class="g">Unlock</span>
+          <span>Value</span>
+        </h1>
+        <p class="hero-sub">Advanced Analytics · Industrial AI · Digital Innovation</p>
+        <div class="hero-btns">
+          <a href="#s-services" class="btn-gold">Explore Services</a>
+          <a href="#s-contact" class="btn-glass">Get In Touch</a>
         </div>
-
-        <!-- Lego data-tower infographic -->
-        <div class="about-lego reveal">
-          <div class="lego-tower-wrap" aria-label="VNLOC identity built block by block">
-            <div class="lego-tower">
-              <!-- Blocks built bottom-up in CSS animation -->
-              <div class="l-block" style="--c:#006DB7;--w:9;--d:1;--delay:0s">Data</div>
-              <div class="l-block" style="--c:#D01012;--w:7;--d:1;--delay:.15s">AI</div>
-              <div class="l-block" style="--c:#F5C300;--w:8;--d:1;--delay:.3s">Analytics</div>
-              <div class="l-block" style="--c:#00A650;--w:6;--d:1;--delay:.45s">Community</div>
-              <div class="l-block" style="--c:#006DB7;--w:5;--d:1;--delay:.6s">Value</div>
-              <div class="l-block top" style="--c:#F5C300;--w:4;--d:1;--delay:.75s">VNLOC</div>
-            </div>
-            <div class="lego-tower-label">Value Built Block by Block</div>
+        <div class="scroll-hint">
+          <div class="sh-icon">
+            <div class="sh-dot"></div>
           </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ SERVICES ============ -->
-  <section class="services section" id="services">
-    <div class="container">
-      <div class="sec-head">
-        <span class="tag reveal">What We Do</span>
-        <h2 class="h2 reveal">Our <span class="gold">Services</span></h2>
-        <p class="sec-sub reveal">Nine capability areas designed to unlock value across your industrial operations.</p>
-      </div>
-
-      <div class="services-grid">
-
-        <article class="svc-card reveal" data-index="0">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#F5C300;width:48px"></div>
-              <div class="li-b" style="background:#F5C300;width:36px"></div>
-              <div class="li-b li-b--bar" style="background:#FFE066;width:48px"></div>
-            </div>
-          </div>
-          <span class="svc-num">01</span>
-          <h3>Advanced Analytics</h3>
-          <p>Transforming raw data into actionable insights that improve operational performance and efficiency.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="1">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#D01012;width:48px"></div>
-              <div class="li-b li-b--wide" style="background:#FF4444;width:60px"></div>
-              <div class="li-b" style="background:#D01012;width:36px"></div>
-            </div>
-          </div>
-          <span class="svc-num">02</span>
-          <h3>AI Solutions</h3>
-          <p>Automating, predicting, and optimising processes across industrial operations.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="2">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#9B59B6;width:60px"></div>
-              <div class="li-b" style="background:#8E44AD;width:48px"></div>
-              <div class="li-b" style="background:#9B59B6;width:36px"></div>
-            </div>
-          </div>
-          <span class="svc-num">03</span>
-          <h3>GenAI &amp; Agents</h3>
-          <p>Creating context-aware tools and agents that support decision-making and enhance productivity.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="3">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack lego-mine-icon">
-              <div class="li-b" style="background:#607D8B;width:60px"></div>
-              <div class="li-b" style="background:#455A64;width:48px"></div>
-              <div class="li-b" style="background:#1A237E;width:36px"></div>
-            </div>
-          </div>
-          <span class="svc-num">04</span>
-          <h3>Orebody Analytics</h3>
-          <p>Integrating geological, spatial, and operational data to maximise resource value and extraction efficiency.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="4">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#006DB7;width:48px"></div>
-              <div class="li-b li-b--wide" style="background:#0288D1;width:64px"></div>
-              <div class="li-b" style="background:#006DB7;width:48px"></div>
-            </div>
-          </div>
-          <span class="svc-num">05</span>
-          <h3>Spatial Intelligence</h3>
-          <p>Using location data to support planning, compliance, and operational precision.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="5">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#FF6B00;width:48px"></div>
-              <div class="li-b" style="background:#E65100;width:60px"></div>
-              <div class="li-b" style="background:#FF6B00;width:36px"></div>
-            </div>
-          </div>
-          <span class="svc-num">06</span>
-          <h3>Operational Analytics</h3>
-          <p>Improving productivity, safety, and cost-efficiency through real-time and historical operations data.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="6">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b" style="background:#00A650;width:36px"></div>
-              <div class="li-b" style="background:#2E7D32;width:48px"></div>
-              <div class="li-b" style="background:#00A650;width:60px"></div>
-            </div>
-          </div>
-          <span class="svc-num">07</span>
-          <h3>Data Science Consulting</h3>
-          <p>Merging deep industry expertise with predictive analytics to deliver meaningful impact.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="7">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b li-b--screen" style="background:#1A1A2E;width:64px;border:2px solid #F5C300"></div>
-              <div class="li-b" style="background:#F5C300;width:36px"></div>
-            </div>
-          </div>
-          <span class="svc-num">08</span>
-          <h3>Custom Dashboarding</h3>
-          <p>Simplifying complex data into clear, actionable visuals for decision-makers.</p>
-        </article>
-
-        <article class="svc-card reveal" data-index="8">
-          <div class="svc-lego-icon">
-            <div class="lego-icon-stack">
-              <div class="li-b li-b--eye" style="background:#006DB7;width:52px"></div>
-              <div class="li-b" style="background:#0D47A1;width:36px"></div>
-              <div class="li-b" style="background:#006DB7;width:52px"></div>
-            </div>
-          </div>
-          <span class="svc-num">09</span>
-          <h3>Computer Vision</h3>
-          <p>Extracting high-value insights from imagery, drones, and satellite data.</p>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ VALUES ============ -->
-  <section class="values section" id="values">
-    <div class="container">
-      <div class="sec-head">
-        <span class="tag reveal">Our Foundation</span>
-        <h2 class="h2 reveal">Core <span class="gold">Values</span></h2>
-      </div>
-
-      <div class="values-grid">
-        <div class="val-card reveal" style="--vc:#F5C300">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#F5C300;width:52px"></div>
-            <div class="vl-block" style="background:#E6B800;width:40px"></div>
-            <div class="vl-stud" style="background:#F5C300"></div>
-          </div>
-          <h3>Meaningful Value</h3>
-          <p>Turning data and technology into results that create lasting benefit for people, industry, and the planet.</p>
-        </div>
-
-        <div class="val-card reveal" style="--vc:#D01012">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#D01012;width:52px"></div>
-            <div class="vl-block" style="background:#B71C1C;width:40px"></div>
-            <div class="vl-stud" style="background:#D01012"></div>
-          </div>
-          <h3>Integrity</h3>
-          <p>Acting with honesty, accountability, and respect in everything we do — not just what is easy.</p>
-        </div>
-
-        <div class="val-card reveal" style="--vc:#006DB7">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#006DB7;width:52px"></div>
-            <div class="vl-block" style="background:#01579B;width:40px"></div>
-            <div class="vl-stud" style="background:#006DB7"></div>
-          </div>
-          <h3>Community Impact</h3>
-          <p>Measuring success by the positive change we bring to communities, not just the outcomes we deliver.</p>
-        </div>
-
-        <div class="val-card reveal" style="--vc:#00A650">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#00A650;width:52px"></div>
-            <div class="vl-block" style="background:#1B5E20;width:40px"></div>
-            <div class="vl-stud" style="background:#00A650"></div>
-          </div>
-          <h3>Collaboration</h3>
-          <p>Believing value is unlocked together — through strong partnerships, open dialogue, and shared goals.</p>
-        </div>
-
-        <div class="val-card reveal" style="--vc:#FF6B35">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#FF6B35;width:52px"></div>
-            <div class="vl-block" style="background:#E64A19;width:40px"></div>
-            <div class="vl-stud" style="background:#FF6B35"></div>
-          </div>
-          <h3>Inclusiveness</h3>
-          <p>Embracing diverse perspectives and ensuring everyone has a voice in shaping solutions.</p>
-        </div>
-
-        <div class="val-card reveal" style="--vc:#9B59B6">
-          <div class="val-lego">
-            <div class="vl-block" style="background:#9B59B6;width:52px"></div>
-            <div class="vl-block" style="background:#6A1B9A;width:40px"></div>
-            <div class="vl-stud" style="background:#9B59B6"></div>
-          </div>
-          <h3>Equality</h3>
-          <p>Standing for fairness and equal opportunity within our team, partnerships, and the communities we serve.</p>
+          <span>Scroll to enter the mine</span>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ IMPACT / 2% ============ -->
-  <section class="impact section" id="impact">
-    <div class="container">
-      <div class="impact-grid">
-
-        <div class="impact-text">
-          <span class="tag reveal">Community First</span>
-          <h2 class="h2 reveal">Every Contract.<br><span class="gold">Real Impact.</span></h2>
-          <p class="body-lg reveal">
-            As part of our purpose-led model, <strong>2% of the value from every contract</strong>
-            awarded to VNLOC is directed toward nominated charities and community development
-            initiatives — ensuring every partnership contributes to a better future.
-          </p>
-          <a href="#contact" class="btn btn-gold reveal">Partner With Us</a>
-        </div>
-
-        <!-- Lego flow infographic -->
-        <div class="impact-flow reveal" aria-label="Value flow: contract to community">
-
-          <div class="flow-node">
-            <div class="fn-lego">
-              <div class="fn-b" style="background:#4A90D9;width:80px"></div>
-              <div class="fn-b" style="background:#4A90D9;width:64px;opacity:.8"></div>
-              <div class="fn-b" style="background:#4A90D9;width:48px;opacity:.6"></div>
-            </div>
-            <span class="fn-label">Client Contract</span>
-          </div>
-
-          <div class="flow-arrow">
-            <svg viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 12H72M60 4L72 12L60 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-
-          <div class="flow-node">
-            <div class="fn-lego">
-              <div class="fn-b" style="background:#D01012;width:80px"></div>
-              <div class="fn-b" style="background:#D01012;width:64px;opacity:.8"></div>
-              <div class="fn-stud">VNLOC</div>
-            </div>
-            <span class="fn-label">VNLOC Delivers</span>
-          </div>
-
-          <div class="flow-arrow flow-arrow--accent">
-            <div class="flow-pct">2%</div>
-            <svg viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 12H72M60 4L72 12L60 20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-
-          <div class="flow-node">
-            <div class="fn-lego">
-              <div class="fn-b" style="background:#00A650;width:80px"></div>
-              <div class="fn-b" style="background:#00A650;width:52px;opacity:.8"></div>
-              <div class="fn-stud fn-stud--green">&#9829;</div>
-            </div>
-            <span class="fn-label">Community</span>
-          </div>
-
+    <!-- 1 — ABOUT: aerial mine view -->
+    <section class="ss" id="s-about" style="height:110vh">
+      <div class="card card-left">
+        <span class="scene-chip">Open-Cut Mine · Western Australia</span>
+        <span class="badge">About VNLOC</span>
+        <h2>Engineering meets<br><span class="g">Digital Innovation</span></h2>
+        <p>Founded by a seasoned mining engineer and a data science leader, VNLOC was born from the belief that true value lies at the intersection of domain expertise and digital innovation.</p>
+        <p>We hold deep speciality in advanced analytics, Industrial AI, and digital technologies — helping businesses solve complex problems and drive real value for people, communities, and the economy.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="sn">9+</div><div class="sl">Services</div></div>
+          <div class="stat"><div class="sn g">2%</div><div class="sl">To Community</div></div>
+          <div class="stat"><div class="sn">WA</div><div class="sl">Founded</div></div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ CONTACT ============ -->
-  <section class="contact section" id="contact">
-    <div class="container">
-      <div class="contact-grid">
+    <!-- 2 — OREBODY: pit floor, excavator loading truck -->
+    <section class="ss" id="s-orebody" style="height:130vh">
+      <div class="card card-left">
+        <span class="badge">Service Spotlight · 01</span>
+        <h2>Orebody<br><span class="g">Analytics</span></h2>
+        <p>Integrating geological, spatial, and operational data to maximise resource value and extraction efficiency — from drill hole to dispatch.</p>
+        <ul class="feat-list">
+          <li>Geological model integration &amp; grade control</li>
+          <li>Resource estimation &amp; reconciliation</li>
+          <li>Extraction sequence optimisation</li>
+          <li>Real-time dig-face tracking</li>
+        </ul>
+      </div>
+      <!-- Floating annotation pinned to excavator area -->
+      <div class="ann ann-right" id="ann-exc">
+        <div class="ann-line"></div>
+        <div class="ann-bubble">
+          <div class="ann-metric">720 BCM/hr</div>
+          <div class="ann-label">Live Dig Rate</div>
+        </div>
+      </div>
+      <div class="ann ann-right2" id="ann-grade">
+        <div class="ann-line"></div>
+        <div class="ann-bubble">
+          <div class="ann-metric">1.42 g/t</div>
+          <div class="ann-label">Ore Grade</div>
+        </div>
+      </div>
+    </section>
 
+    <!-- 3 — HAUL: truck on haul road -->
+    <section class="ss" id="s-haul" style="height:130vh">
+      <div class="card card-right">
+        <span class="badge">Service Spotlight · 05 + 06</span>
+        <h2>Operational &amp;<br><span class="g">Spatial Intelligence</span></h2>
+        <p>Real-time fleet tracking, dispatch optimisation, and spatial intelligence — turning every truck cycle into actionable data that maximises productivity and safety.</p>
+        <ul class="feat-list">
+          <li>Real-time fleet management &amp; dispatch</li>
+          <li>Cycle time analysis &amp; benchmarking</li>
+          <li>Haul road design &amp; optimisation</li>
+          <li>Spatial compliance monitoring</li>
+        </ul>
+      </div>
+      <div class="ann ann-left" id="ann-truck">
+        <div class="ann-bubble">
+          <div class="ann-metric">98.2%</div>
+          <div class="ann-label">Payload Efficiency</div>
+        </div>
+        <div class="ann-line"></div>
+      </div>
+    </section>
+
+    <!-- 4 — CRUSHER: truck dumping, AI processing -->
+    <section class="ss" id="s-crusher" style="height:130vh">
+      <div class="card card-right">
+        <span class="badge">Service Spotlight · 02 + 03</span>
+        <h2>AI &amp; GenAI<br><span class="g">Solutions</span></h2>
+        <p>Machine learning and generative AI trained on your operational data — predicting equipment failure, optimising crushing circuits, and maximising material recovery at every stage.</p>
+        <ul class="feat-list">
+          <li>Predictive maintenance &amp; fault detection</li>
+          <li>Crushing circuit optimisation</li>
+          <li>GenAI agents for operational decisions</li>
+          <li>Recovery &amp; throughput maximisation</li>
+        </ul>
+      </div>
+      <div class="ann ann-left" id="ann-crusher">
+        <div class="ann-bubble">
+          <div class="ann-metric">94.7%</div>
+          <div class="ann-label">Recovery Rate</div>
+        </div>
+        <div class="ann-line"></div>
+      </div>
+    </section>
+
+    <!-- 5 — SERVICES: aerial overview, glass grid -->
+    <section class="ss ss-full" id="s-services" style="height:220vh">
+      <div class="sticky-panel">
+        <div class="services-wrap">
+          <div class="sec-head">
+            <span class="badge">Full Capability</span>
+            <h2>Our <span class="g">9 Services</span></h2>
+            <p>End-to-end digital solutions for the industrial sector</p>
+          </div>
+          <div class="svc-grid">
+            <div class="svc-g-card">
+              <div class="svc-num">01</div>
+              <div class="svc-icon svc-analytics"></div>
+              <h3>Advanced Analytics</h3>
+              <p>Transforming raw data into actionable insights that improve operational performance and efficiency.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">02</div>
+              <div class="svc-icon svc-ai"></div>
+              <h3>AI Solutions</h3>
+              <p>Automating, predicting, and optimising processes across industrial operations.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">03</div>
+              <div class="svc-icon svc-genai"></div>
+              <h3>GenAI &amp; Agents</h3>
+              <p>Context-aware tools and agents that support decision-making and enhance productivity.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">04</div>
+              <div class="svc-icon svc-ore"></div>
+              <h3>Orebody Analytics</h3>
+              <p>Integrating geological, spatial, and operational data to maximise resource value.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">05</div>
+              <div class="svc-icon svc-spatial"></div>
+              <h3>Spatial Intelligence</h3>
+              <p>Location data to support planning, compliance, and operational precision.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">06</div>
+              <div class="svc-icon svc-ops"></div>
+              <h3>Operational Analytics</h3>
+              <p>Productivity, safety, and cost-efficiency through real-time and historical operations data.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">07</div>
+              <div class="svc-icon svc-ds"></div>
+              <h3>Data Science Consulting</h3>
+              <p>Deep industry expertise combined with predictive analytics for meaningful impact.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">08</div>
+              <div class="svc-icon svc-dash"></div>
+              <h3>Custom Dashboarding</h3>
+              <p>Complex data into clear, actionable visuals for decision-makers at every level.</p>
+            </div>
+            <div class="svc-g-card">
+              <div class="svc-num">09</div>
+              <div class="svc-icon svc-cv"></div>
+              <h3>Computer Vision</h3>
+              <p>High-value insights from imagery, drones, and satellite data — remote sensing at scale.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 — VALUES -->
+    <section class="ss ss-full" id="s-values" style="height:110vh">
+      <div class="sticky-panel">
+        <div class="values-wrap">
+          <div class="sec-head">
+            <span class="badge">Our Foundation</span>
+            <h2>Core <span class="g">Values</span></h2>
+          </div>
+          <div class="val-grid">
+            <div class="val-card" style="--vc:#F5C300">
+              <div class="vc-dot" style="background:#F5C300"></div>
+              <h3>Meaningful Value</h3>
+              <p>Turning data and technology into lasting benefit for people, industry, and the planet.</p>
+            </div>
+            <div class="val-card" style="--vc:#D01012">
+              <div class="vc-dot" style="background:#D01012"></div>
+              <h3>Integrity</h3>
+              <p>Acting with honesty, accountability, and respect in everything we do.</p>
+            </div>
+            <div class="val-card" style="--vc:#006DB7">
+              <div class="vc-dot" style="background:#006DB7"></div>
+              <h3>Community Impact</h3>
+              <p>Measuring success by the positive change we bring to communities.</p>
+            </div>
+            <div class="val-card" style="--vc:#00A650">
+              <div class="vc-dot" style="background:#00A650"></div>
+              <h3>Collaboration</h3>
+              <p>Value is unlocked together — through strong partnerships and shared goals.</p>
+            </div>
+            <div class="val-card" style="--vc:#FF6B35">
+              <div class="vc-dot" style="background:#FF6B35"></div>
+              <h3>Inclusiveness</h3>
+              <p>Embracing diverse perspectives and ensuring everyone has a voice.</p>
+            </div>
+            <div class="val-card" style="--vc:#9B59B6">
+              <div class="vc-dot" style="background:#9B59B6"></div>
+              <h3>Equality</h3>
+              <p>Fairness and equal opportunity within our team and the communities we serve.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 — IMPACT -->
+    <section class="ss" id="s-impact" style="height:110vh">
+      <div class="card card-center card-impact">
+        <span class="badge">Purpose-Led Model</span>
+        <h2>Every Contract.<br><span class="g">Real Impact.</span></h2>
+        <p>As part of our purpose-led model, <strong>2% of the value from every contract</strong> awarded to VNLOC is directed toward nominated charities and community development initiatives.</p>
+
+        <!-- Animated flow infographic -->
+        <div class="impact-flow">
+          <div class="if-node">
+            <div class="if-icon if-icon-contract">
+              <div class="if-lego" style="--c:#4A90D9"></div>
+              <div class="if-lego" style="--c:#4A90D9;--w:80%"></div>
+            </div>
+            <span>Client Contract</span>
+          </div>
+          <div class="if-arrow">
+            <svg viewBox="0 0 60 20"><path d="M2 10h52M42 3l10 7-10 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="if-node">
+            <div class="if-icon if-icon-vnloc">
+              <div class="if-lego" style="--c:#D01012"></div>
+              <div class="if-lego" style="--c:#D01012;--w:80%"></div>
+              <div class="if-label-sm">VNLOC</div>
+            </div>
+            <span>Value Delivered</span>
+          </div>
+          <div class="if-arrow if-arrow-accent">
+            <div class="if-pct">2%</div>
+            <svg viewBox="0 0 60 20"><path d="M2 10h52M42 3l10 7-10 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </div>
+          <div class="if-node">
+            <div class="if-icon if-icon-community">
+              <div class="if-lego" style="--c:#00A650"></div>
+              <div class="if-heart">♥</div>
+            </div>
+            <span>Community</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 — CONTACT -->
+    <section class="ss" id="s-contact" style="height:110vh">
+      <div class="card card-split">
         <div class="contact-info">
-          <span class="tag reveal">Get In Touch</span>
-          <h2 class="h2 reveal">Let's <span class="gold">Build</span><br>Together</h2>
-          <div class="c-details reveal">
-            <div class="c-item">
-              <span class="c-label">Director</span>
-              <span class="c-val">Phanindra Kumar Mantha</span>
-            </div>
-            <div class="c-item">
-              <span class="c-label">Email</span>
-              <a href="mailto:info@vnloc.com.au" class="c-val c-link">info@vnloc.com.au</a>
-            </div>
-            <div class="c-item">
-              <span class="c-label">Phone</span>
-              <a href="tel:+61487042563" class="c-val c-link">+61 487 042 563</a>
-            </div>
-            <div class="c-item">
-              <span class="c-label">Location</span>
-              <span class="c-val">Perth, Western Australia</span>
-            </div>
-          </div>
-
-          <!-- Mini Lego mine decoration -->
-          <div class="contact-lego-deco" aria-hidden="true">
-            <div class="cld-block" style="background:#F5C300;width:56px;margin-left:0"></div>
-            <div class="cld-block" style="background:#D01012;width:40px;margin-left:8px"></div>
-            <div class="cld-block" style="background:#006DB7;width:48px;margin-left:4px"></div>
+          <span class="badge">Get In Touch</span>
+          <h2>Let's <span class="g">Build</span><br>Together</h2>
+          <div class="c-items">
+            <div class="c-item"><span class="c-lbl">Director</span><span class="c-val">Phanindra Kumar Mantha</span></div>
+            <div class="c-item"><span class="c-lbl">Email</span><a href="mailto:info@vnloc.com.au" class="c-val c-link">info@vnloc.com.au</a></div>
+            <div class="c-item"><span class="c-lbl">Phone</span><a href="tel:+61487042563" class="c-val c-link">+61 487 042 563</a></div>
+            <div class="c-item"><span class="c-lbl">Location</span><span class="c-val">Perth, Western Australia</span></div>
           </div>
         </div>
-
-        <form class="contact-form reveal" id="contactForm" action="https://formspree.io/f/your-form-id" method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="fname">Name</label>
-              <input id="fname" type="text" name="name" placeholder="Your name" required />
-            </div>
-            <div class="form-group">
-              <label for="femail">Email</label>
-              <input id="femail" type="email" name="email" placeholder="your@email.com" required />
-            </div>
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="f-row">
+            <div class="f-group"><label>Name</label><input type="text" name="name" placeholder="Your name" required /></div>
+            <div class="f-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required /></div>
           </div>
-          <div class="form-group">
-            <label for="fcompany">Company</label>
-            <input id="fcompany" type="text" name="company" placeholder="Your company" />
-          </div>
-          <div class="form-group">
-            <label for="fmessage">Message</label>
-            <textarea id="fmessage" name="message" rows="5" placeholder="Tell us about your project or challenge..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-gold">Send Message &rarr;</button>
+          <div class="f-group"><label>Company</label><input type="text" name="company" placeholder="Your company" /></div>
+          <div class="f-group"><label>Message</label><textarea name="message" rows="4" placeholder="Tell us about your project..." required></textarea></div>
+          <button type="submit" class="btn-gold">Send Message →</button>
         </form>
-
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ============ FOOTER ============ -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
+  </main>
 
-        <div class="footer-brand">
-          <img src="VNLOC_LOGO.png" alt="VNLOC" class="footer-logo" />
-          <p class="footer-tagline">We Unlock Value</p>
-          <p class="footer-copy">&copy; 2025 VNLOC. All Rights Reserved.<br>Proudly Western Australian.</p>
-        </div>
-
-        <div class="footer-nav">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#values">Our Values</a></li>
-            <li><a href="#impact">Community Impact</a></li>
-            <li><a href="#contact">Contact</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-nav">
-          <h4>Services</h4>
-          <ul>
-            <li>Advanced Analytics</li>
-            <li>AI Solutions</li>
-            <li>GenAI &amp; Agents</li>
-            <li>Orebody Analytics</li>
-            <li>Spatial Intelligence</li>
-            <li>Computer Vision</li>
-          </ul>
-        </div>
-
-        <div class="footer-contact">
-          <h4>Contact</h4>
-          <p>Perth, Western Australia</p>
-          <a href="mailto:info@vnloc.com.au">info@vnloc.com.au</a>
-          <a href="tel:+61487042563">+61 487 042 563</a>
-          <div class="footer-lego-deco" aria-hidden="true">
-            <div class="fd-b" style="--fc:#F5C300"></div>
-            <div class="fd-b" style="--fc:#D01012"></div>
-            <div class="fd-b" style="--fc:#006DB7"></div>
-            <div class="fd-b" style="--fc:#00A650"></div>
-          </div>
-        </div>
-
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div class="ft-inner">
+      <div class="ft-brand">
+        <img src="VNLOC_LOGO.png" alt="VNLOC" class="ft-logo" />
+        <p class="ft-tag">We Unlock Value</p>
+        <p class="ft-copy">© 2025 VNLOC. All Rights Reserved.<br>Proudly Western Australian.</p>
+      </div>
+      <div class="ft-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#s-about">About</a></li>
+          <li><a href="#s-services">Services</a></li>
+          <li><a href="#s-values">Our Values</a></li>
+          <li><a href="#s-impact">Community Impact</a></li>
+          <li><a href="#s-contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Services</h4>
+        <ul>
+          <li>Advanced Analytics</li>
+          <li>AI Solutions</li>
+          <li>GenAI &amp; Agents</li>
+          <li>Orebody Analytics</li>
+          <li>Spatial Intelligence</li>
+          <li>Computer Vision</li>
+        </ul>
+      </div>
+      <div class="ft-col">
+        <h4>Contact</h4>
+        <p>Perth, Western Australia</p>
+        <a href="mailto:info@vnloc.com.au">info@vnloc.com.au</a>
+        <a href="tel:+61487042563">+61 487 042 563</a>
       </div>
     </div>
   </footer>
@@ -498,8 +377,7 @@
     }
   }
   </script>
-  <script type="module" src="js/lego-scene.js"></script>
+  <script type="module" src="js/scene.js"></script>
   <script src="js/main.js"></script>
-
 </body>
 </html>
