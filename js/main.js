@@ -142,7 +142,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
       const msg     = form.message?.value || '';
       const sub = encodeURIComponent(`VNLOC Enquiry — ${name}${company ? ' / ' + company : ''}`);
       const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\n${msg}`);
-      window.location.href = `mailto:info@vnloc.com.au?subject=${sub}&body=${body}`;
+      window.location.href = `mailto:vnloc@outlook.com?subject=${sub}&body=${body}`;
       return;
     }
 
@@ -150,18 +150,22 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     btn.disabled = true;
 
     try {
-      const res = await fetch(action, {
+      const res  = await fetch(action, {
         method: 'POST',
         body: new FormData(form),
         headers: { Accept: 'application/json' },
       });
-      if (res.ok) {
+      const data = await res.json();
+      if (data.success) {
         btn.textContent = 'Message Sent ✓';
         btn.style.background = '#00A650';
         form.reset();
-      } else throw new Error();
+      } else {
+        throw new Error(data.message || 'Submission failed');
+      }
     } catch {
       btn.textContent = 'Error — try email';
+      btn.style.background = '';
       btn.disabled = false;
     }
   });
