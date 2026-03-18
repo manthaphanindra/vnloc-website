@@ -63,8 +63,7 @@
     <!-- 1 — ABOUT: aerial mine view -->
     <section class="ss" id="s-about" style="height:110vh">
       <div class="card card-left">
-        <span class="scene-chip">Open-Cut Mine · Western Australia</span>
-        <span class="badge">About VNLOC</span>
+<span class="badge">About VNLOC</span>
         <h2>Engineering meets<br><span class="g">Digital Innovation</span></h2>
         <p>Founded by a seasoned mining engineer and a data science leader, VNLOC was born from the belief that true value lies at the intersection of domain expertise and digital innovation.</p>
         <p>We hold deep speciality in advanced analytics, Industrial AI, and digital technologies — helping businesses solve complex problems and drive real value for people, communities, and the economy.</p>
@@ -293,7 +292,10 @@
             <div class="c-item"><span class="c-lbl">Location</span><span class="c-val">Perth, Western Australia</span></div>
           </div>
         </div>
-        <form id="contactForm" class="contact-form" action="https://formspree.io/f/your-form-id" method="POST">
+        <form id="contactForm" class="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="723494" />
+          <input type="hidden" name="subject" value="New Enquiry — VNLOC Website" />
+          <input type="hidden" name="redirect" value="false" />
           <div class="f-row">
             <div class="f-group"><label>Name</label><input type="text" name="name" placeholder="Your name" required /></div>
             <div class="f-group"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required /></div>
