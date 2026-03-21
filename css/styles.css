@@ -87,7 +87,8 @@ body::after {
   width: auto;
   transition: opacity .2s, transform .2s;
   display: block;
-  filter: invert(1) drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+  filter: invert(1);
+  mix-blend-mode: screen;
 }
 .nav-logo:hover img { opacity: .88; transform: scale(1.04); }
 
