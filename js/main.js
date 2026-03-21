@@ -41,14 +41,17 @@
   });
 })();
 
-// ─── Smooth scroll for anchor links ──────────────────────────
+// ─── Nav link clicks — instant jump (no scroll animation) ────
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href').slice(1);
     const el = document.getElementById(id);
     if (!el) return;
     e.preventDefault();
-    el.scrollIntoView({ behavior: 'instant', block: 'start' });
+    // Use scrollTo without behavior for universal instant jump
+    // (avoids CSS scroll-behavior and scrollIntoView quirks on mobile Safari)
+    const top = el.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo(0, top);
   });
 });
 
