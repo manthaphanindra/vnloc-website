@@ -476,17 +476,17 @@ p strong { color: var(--text); }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
 }
-.svc-analytics { background:rgba(245,195,0,.12);  font-size:24px; }
-.svc-ai        { background:rgba(208,16,18,.12);  font-size:24px; }
-.svc-genai     { background:rgba(155,89,182,.12); font-size:24px; }
-.svc-ore       { background:rgba(176,104,32,.15); font-size:24px; }
-.svc-spatial   { background:rgba(0,109,183,.12);  font-size:24px; }
-.svc-ops       { background:rgba(255,107,0,.12);  font-size:24px; }
-.svc-ds        { background:rgba(0,166,80,.12);   font-size:24px; }
-.svc-dash      { background:rgba(245,195,0,.08);  font-size:24px; }
-.svc-cv        { background:rgba(0,109,183,.12);  font-size:24px; }
+.svc-icon svg { width: 22px; height: 22px; stroke: currentColor; }
+.svc-analytics { background:rgba(245,195,0,.12);  color:#F5C300; }
+.svc-ai        { background:rgba(208,16,18,.12);  color:#D01012; }
+.svc-genai     { background:rgba(155,89,182,.12); color:#9B59B6; }
+.svc-ore       { background:rgba(176,104,32,.15); color:#C47820; }
+.svc-spatial   { background:rgba(0,109,183,.12);  color:#006DB7; }
+.svc-ops       { background:rgba(255,107,0,.12);  color:#FF6B00; }
+.svc-ds        { background:rgba(0,166,80,.12);   color:#00A650; }
+.svc-dash      { background:rgba(245,195,0,.08);  color:#F5C300; }
+.svc-cv        { background:rgba(0,109,183,.12);  color:#006DB7; }
 
 .svc-g-card h3 {
   font-family: var(--fh);
@@ -511,7 +511,8 @@ p strong { color: var(--text); }
   transition: background .25s;
 }
 .val-card:hover { background: rgba(255,255,255,.055); }
-.vc-icon { font-size: 28px; margin-bottom: 12px; display: block; line-height: 1; }
+.vc-icon { margin-bottom: 12px; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.06); color: var(--vc); }
+.vc-icon svg { width: 20px; height: 20px; stroke: currentColor; }
 .val-card h3 { font-family: var(--fh); font-size: .95rem; font-weight: 600; color: var(--vc); margin-bottom: .4rem; }
 .val-card p  { font-size: .8rem; color: var(--dim); line-height: 1.55; margin: 0; }
 
@@ -540,18 +541,15 @@ p strong { color: var(--text); }
 
 .if-icon {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
   width: 72px;
   height: 72px;
   background: rgba(255,255,255,.04);
   border: 1px solid var(--border);
   border-radius: 16px;
-  font-size: 32px;
-  line-height: 1;
 }
+.if-icon svg { width: 32px; height: 32px; stroke: currentColor; }
 .if-icon-contract { background: rgba(74,144,217,.1); border-color: rgba(74,144,217,.25); }
 .if-icon-vnloc    { background: rgba(208,16,18,.1);  border-color: rgba(208,16,18,.25);  }
 .if-icon-community{ background: rgba(0,166,80,.1);   border-color: rgba(0,166,80,.25);   }
