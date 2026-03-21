@@ -22,7 +22,7 @@
   --r:        8px;
 }
 
-html { scroll-behavior: smooth; font-size: 16px; }
+html { scroll-behavior: auto; font-size: 16px; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -697,19 +697,46 @@ p strong { color: var(--text); }
   #navlinks.open { display: flex; }
   #burger { display: flex; }
 
-  .card { padding: 28px 22px; max-width: 90vw; }
-  .card-left  { margin-left: 4vw; }
-  .card-right { margin-right: 4vw; }
+  /* ── Fix fixed-height sections overflowing on mobile ── */
+  .ss {
+    height: auto !important;
+    min-height: 100svh;
+    padding: 90px 0 48px;
+    align-items: flex-start;
+  }
+  .ss-full {
+    height: auto !important;
+  }
+  .sticky-panel {
+    position: relative;
+    height: auto;
+    min-height: 100svh;
+    padding: 24px 0;
+  }
 
-  .impact-flow { flex-direction: column; gap: 12px; }
-  .if-arrow { transform: rotate(90deg); padding: 0 8px; }
+  /* ── Cards ── */
+  .card { padding: 28px 22px; max-width: 92vw; }
+  .card-left  { margin-left: 4vw; margin-right: 4vw; }
+  .card-right { margin-right: 4vw; margin-left: 4vw; }
+  .card-split { grid-template-columns: 1fr; gap: 28px; }
 
-  .svc-grid { grid-template-columns: 1fr; }
+  /* ── Hero ── */
+  .hero-logo { height: 120px; }
+  .hero-h1 { font-size: clamp(3rem, 14vw, 6rem); }
+  .hero-btns { flex-direction: column; align-items: center; }
+
+  /* ── Services / Values ── */
+  .svc-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
   .val-grid { grid-template-columns: 1fr; }
   .services-wrap, .values-wrap { padding: 28px 20px; }
 
+  /* ── Impact flow ── */
+  .impact-flow { flex-direction: column; gap: 12px; }
+  .if-arrow { transform: rotate(90deg); padding: 0 8px; }
+
+  /* ── Misc ── */
   .ann { display: none; }
   .f-row { grid-template-columns: 1fr; }
   .ft-inner { grid-template-columns: 1fr; }
-  .hero-h1 { font-size: clamp(3rem, 14vw, 6rem); }
+  .stat-row { gap: 1.5rem; }
 }
