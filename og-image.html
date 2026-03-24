@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: #06060E;
+    font-family: 'Arial Black', 'Arial', sans-serif;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 60px 80px;
+    position: relative;
+  }
+  /* Red-orange glow bg */
+  body::before {
+    content: '';
+    position: absolute;
+    width: 700px; height: 700px;
+    right: 80px; top: -100px;
+    background: radial-gradient(circle, rgba(180,60,10,0.45) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  body::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    left: 0; bottom: -100px;
+    background: radial-gradient(circle, rgba(245,195,0,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .left {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    z-index: 1;
+    max-width: 560px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #F5C300;
+    border: 1px solid rgba(245,195,0,.4);
+    border-radius: 99px;
+    padding: 6px 18px;
+    width: fit-content;
+  }
+  .headline {
+    font-size: 78px;
+    font-weight: 900;
+    line-height: .95;
+    color: #fff;
+    letter-spacing: -2px;
+  }
+  .headline .gold { color: #F5C300; }
+  .sub {
+    font-size: 18px;
+    color: rgba(238,240,248,.55);
+    font-weight: 400;
+    letter-spacing: .04em;
+    line-height: 1.5;
+    font-family: Arial, sans-serif;
+  }
+  .domain {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    color: rgba(238,240,248,.4);
+    letter-spacing: .08em;
+    font-family: Arial, sans-serif;
+    margin-top: 8px;
+  }
+  .domain-dot { width:6px; height:6px; border-radius:50%; background:#F5C300; }
+  .right {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .right img {
+    height: 420px;
+    width: auto;
+    filter: drop-shadow(0 16px 60px rgba(0,0,0,0.8));
+  }
+</style>
+</head>
+<body>
+  <div class="left">
+    <span class="badge">Industrial AI &amp; Analytics · Perth, WA</span>
+    <div class="headline">We<br><span class="gold">Unlock</span><br>Value</div>
+    <div class="sub">Advanced Analytics · Industrial AI<br>Digital Innovation for Mining &amp; Industry</div>
+    <div class="domain"><span class="domain-dot"></span>www.vnloc.com</div>
+  </div>
+  <div class="right">
+    <img src="VNLOC_LOGO.png" alt="VNLOC Mascot" />
+  </div>
+</body>
+</html>
