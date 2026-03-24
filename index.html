@@ -363,7 +363,7 @@
     // ── Footer map ─────────────────────────────────────────────
     (function () {
       const map = L.map('footer-map', {
-        center: [-5, -3],
+        center: [10, -18],
         zoom: 2,
         zoomControl: true,
         scrollWheelZoom: false,
@@ -400,11 +400,11 @@
 
       const arcStyle = { color: '#F5C300', weight: 2.5, dashArray: '6, 10', opacity: 0.95 };
 
-      // Perth → Hyderabad: convex arc bowing south over the Indian Ocean
-      L.polyline(bezierArc(perth, [-12, 92], hyderabad), arcStyle).addTo(map);
+      // Perth → Hyderabad: convex arc bowing deep south over the Indian Ocean
+      L.polyline(bezierArc(perth, [-45, 94], hyderabad), arcStyle).addTo(map);
 
-      // Hyderabad → Mountain View: convex arc bowing north through Europe / North Atlantic
-      L.polyline(bezierArc(hyderabad, [62, -22], mountView), arcStyle).addTo(map);
+      // Hyderabad → Mountain View: convex arc bowing high north over Europe / North Atlantic
+      L.polyline(bezierArc(hyderabad, [75, -28], mountView), arcStyle).addTo(map);
 
       // Custom drop-pin icon
       function pinIcon(color) {
