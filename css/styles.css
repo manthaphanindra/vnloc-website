@@ -678,6 +678,7 @@ p strong { color: var(--text); }
 }
 .ft-map-dot-gold { background: #F5C300; }
 .ft-map-dot-red  { background: #D01012; }
+.ft-map-dot-blue { background: #006DB7; }
 /* Leaflet tooltip — dark theme */
 .ft-map-tip {
   background: rgba(6,6,14,.92) !important;

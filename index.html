@@ -340,6 +340,7 @@
         <div class="ft-map-labels">
           <span class="ft-map-dot ft-map-dot-gold"></span>Perth, WA
           <span class="ft-map-dot ft-map-dot-red"></span>Mountain View, CA
+          <span class="ft-map-dot ft-map-dot-blue"></span>Hyderabad, IN
         </div>
       </div>
 
@@ -380,24 +381,33 @@
         subdomains: 'abcd', maxZoom: 19
       }).addTo(map);
 
-      const perth     = [-31.9505,  115.8605];
-      const mountView = [ 37.3861, -122.0839];
+      const perth      = [-31.9505,  115.8605];
+      const mountView  = [ 37.3861, -122.0839];
+      const hyderabad  = [ 17.3850,   78.4867];
 
-      // Quadratic bezier arc — control point dips into South Atlantic
-      // matching the reference curve style
-      const ctrl = [-52, -15];
-      const arcPts = [];
-      for (let i = 0; i <= 80; i++) {
-        const t  = i / 80;
-        const mt = 1 - t;
-        arcPts.push([
-          mt*mt*mountView[0] + 2*mt*t*ctrl[0] + t*t*perth[0],
-          mt*mt*mountView[1] + 2*mt*t*ctrl[1] + t*t*perth[1]
-        ]);
+      // Helper: quadratic bezier arc between two points with a control point
+      function bezierArc(a, ctrl, b) {
+        const pts = [];
+        for (let i = 0; i <= 80; i++) {
+          const t = i / 80, mt = 1 - t;
+          pts.push([
+            mt*mt*a[0] + 2*mt*t*ctrl[0] + t*t*b[0],
+            mt*mt*a[1] + 2*mt*t*ctrl[1] + t*t*b[1]
+          ]);
+        }
+        return pts;
       }
-      L.polyline(arcPts, {
-        color: '#F5C300', weight: 2.5, dashArray: '6, 10', opacity: 0.95
-      }).addTo(map);
+
+      const arcStyle = { color: '#F5C300', weight: 2.5, dashArray: '6, 10', opacity: 0.95 };
+
+      // Mountain View → Perth (dips into South Atlantic)
+      L.polyline(bezierArc(mountView, [-52, -15], perth), arcStyle).addTo(map);
+
+      // Mountain View → Hyderabad (curves through North Atlantic / Europe)
+      L.polyline(bezierArc(mountView, [55, -20], hyderabad), arcStyle).addTo(map);
+
+      // Perth → Hyderabad (gentle arc over Indian Ocean)
+      L.polyline(bezierArc(perth, [-8, 95], hyderabad), arcStyle).addTo(map);
 
       // Custom drop-pin icon
       function pinIcon(color) {
@@ -421,6 +431,11 @@
       // Mountain View — red pin
       L.marker(mountView, { icon: pinIcon('#D01012') })
         .bindTooltip('<b>Mountain View</b><br>California, USA', { direction: 'top', className: 'ft-map-tip' })
+        .addTo(map);
+
+      // Hyderabad — blue pin
+      L.marker(hyderabad, { icon: pinIcon('#006DB7') })
+        .bindTooltip('<b>Hyderabad</b><br>Telangana, India', { direction: 'top', className: 'ft-map-tip' })
         .addTo(map);
     })();
 
