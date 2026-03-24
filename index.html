@@ -9,6 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body>
@@ -272,7 +273,6 @@
           <span class="badge">Get In Touch</span>
           <h2>Let's <span class="g">Build</span><br>Together</h2>
           <div class="c-items">
-            <div class="c-item"><span class="c-lbl">Director</span><span class="c-val">Phanindra Kumar Mantha</span></div>
             <div class="c-item"><span class="c-lbl">Email</span><a href="mailto:vnloc@outlook.com" class="c-val c-link">vnloc@outlook.com</a></div>
             <div class="c-item"><span class="c-lbl">Location</span><span class="c-val">Perth, Western Australia</span></div>
           </div>
@@ -296,6 +296,13 @@
 
   <!-- FOOTER -->
   <footer id="footer">
+    <div class="ft-map-wrap">
+      <div id="footer-map"></div>
+      <div class="ft-map-labels">
+        <span class="ft-map-dot ft-map-dot-gold"></span>Perth, Western Australia
+        <span class="ft-map-dot ft-map-dot-red"></span>Mountain View, California
+      </div>
+    </div>
     <div class="ft-inner">
       <div class="ft-brand">
         <img src="VNLOC_LOGO.png" alt="VNLOC" class="ft-logo" />
@@ -342,6 +349,56 @@
   </script>
   <script type="module" src="js/scene.js?v=14"></script>
   <script src="js/main.js"></script>
-  <script>lucide.createIcons();</script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    // ── Footer map ─────────────────────────────────────────────
+    (function () {
+      const map = L.map('footer-map', {
+        center: [5, -3],
+        zoom: 2,
+        zoomControl: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        dragging: false,
+        attributionControl: false,
+        keyboard: false,
+        touchZoom: false
+      });
+
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+        subdomains: 'abcd', maxZoom: 19
+      }).addTo(map);
+
+      const perth     = [-31.9505,  115.8605];
+      const mountView = [ 37.3861, -122.0839];
+
+      // Dotted arc: step through intermediate lat/lng for a smoother curve
+      const pts = [];
+      for (let i = 0; i <= 40; i++) {
+        const t   = i / 40;
+        const lat = perth[0] + t * (mountView[0] - perth[0]);
+        // go west (keeps line within -180 to 180, no dateline split)
+        const lng = perth[1] + t * (mountView[1] - perth[1]);
+        pts.push([lat, lng]);
+      }
+      L.polyline(pts, {
+        color: '#F5C300', weight: 2, dashArray: '6, 10', opacity: 0.9
+      }).addTo(map);
+
+      // Perth — gold
+      L.circleMarker(perth, {
+        radius: 8, fillColor: '#F5C300', color: '#06060E', weight: 2, fillOpacity: 1
+      }).bindTooltip('<b>Perth</b><br>Western Australia', { direction: 'top', className: 'ft-map-tip' })
+        .addTo(map);
+
+      // Mountain View — red
+      L.circleMarker(mountView, {
+        radius: 8, fillColor: '#D01012', color: '#06060E', weight: 2, fillOpacity: 1
+      }).bindTooltip('<b>Mountain View</b><br>California, USA', { direction: 'top', className: 'ft-map-tip' })
+        .addTo(map);
+    })();
+
+    lucide.createIcons();
+  </script>
 </body>
 </html>
