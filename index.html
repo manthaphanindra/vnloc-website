@@ -335,7 +335,7 @@
 
       <!-- Right: map -->
       <div class="ft-map-section">
-        <h4 class="ft-map-heading">Global Presence</h4>
+        <h4 class="ft-map-heading">Global Team Presence</h4>
         <div id="footer-map"></div>
         <div class="ft-map-labels">
           <span class="ft-map-dot ft-map-dot-gold"></span>Perth, WA
@@ -400,14 +400,11 @@
 
       const arcStyle = { color: '#F5C300', weight: 2.5, dashArray: '6, 10', opacity: 0.95 };
 
-      // Mountain View → Perth (dips into South Atlantic)
-      L.polyline(bezierArc(mountView, [-52, -15], perth), arcStyle).addTo(map);
+      // Perth → Hyderabad: convex arc bowing south over the Indian Ocean
+      L.polyline(bezierArc(perth, [-12, 92], hyderabad), arcStyle).addTo(map);
 
-      // Mountain View → Hyderabad (curves through North Atlantic / Europe)
-      L.polyline(bezierArc(mountView, [55, -20], hyderabad), arcStyle).addTo(map);
-
-      // Perth → Hyderabad (gentle arc over Indian Ocean)
-      L.polyline(bezierArc(perth, [-8, 95], hyderabad), arcStyle).addTo(map);
+      // Hyderabad → Mountain View: convex arc bowing north through Europe / North Atlantic
+      L.polyline(bezierArc(hyderabad, [62, -22], mountView), arcStyle).addTo(map);
 
       // Custom drop-pin icon
       function pinIcon(color) {
