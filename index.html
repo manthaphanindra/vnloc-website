@@ -296,45 +296,53 @@
 
   <!-- FOOTER -->
   <footer id="footer">
-    <div class="ft-map-wrap">
-      <div id="footer-map"></div>
-      <div class="ft-map-labels">
-        <span class="ft-map-dot ft-map-dot-gold"></span>Perth, Western Australia
-        <span class="ft-map-dot ft-map-dot-red"></span>Mountain View, California
+    <div class="ft-wrap">
+
+      <!-- Left: brand + links -->
+      <div class="ft-links">
+        <div class="ft-brand">
+          <img src="VNLOC_LOGO.png" alt="VNLOC" class="ft-logo" />
+          <p class="ft-tag">We Unlock Value</p>
+          <p class="ft-copy">© 2025 VNLOC. All Rights Reserved.<br>Proudly Western Australian.</p>
+        </div>
+        <div class="ft-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#s-about">About</a></li>
+            <li><a href="#s-services">Services</a></li>
+            <li><a href="#s-values">Our Values</a></li>
+            <li><a href="#s-impact">Community Impact</a></li>
+            <li><a href="#s-contact">Contact</a></li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Services</h4>
+          <ul>
+            <li>Advanced Analytics</li>
+            <li>AI Solutions</li>
+            <li>GenAI &amp; Agents</li>
+            <li>Orebody Analytics</li>
+            <li>Spatial Intelligence</li>
+            <li>Computer Vision</li>
+          </ul>
+        </div>
+        <div class="ft-col">
+          <h4>Contact</h4>
+          <p>Perth, Western Australia</p>
+          <a href="mailto:vnloc@outlook.com">vnloc@outlook.com</a>
+        </div>
       </div>
-    </div>
-    <div class="ft-inner">
-      <div class="ft-brand">
-        <img src="VNLOC_LOGO.png" alt="VNLOC" class="ft-logo" />
-        <p class="ft-tag">We Unlock Value</p>
-        <p class="ft-copy">© 2025 VNLOC. All Rights Reserved.<br>Proudly Western Australian.</p>
+
+      <!-- Right: map -->
+      <div class="ft-map-section">
+        <h4 class="ft-map-heading">Global Presence</h4>
+        <div id="footer-map"></div>
+        <div class="ft-map-labels">
+          <span class="ft-map-dot ft-map-dot-gold"></span>Perth, WA
+          <span class="ft-map-dot ft-map-dot-red"></span>Mountain View, CA
+        </div>
       </div>
-      <div class="ft-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#s-about">About</a></li>
-          <li><a href="#s-services">Services</a></li>
-          <li><a href="#s-values">Our Values</a></li>
-          <li><a href="#s-impact">Community Impact</a></li>
-          <li><a href="#s-contact">Contact</a></li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4>Services</h4>
-        <ul>
-          <li>Advanced Analytics</li>
-          <li>AI Solutions</li>
-          <li>GenAI &amp; Agents</li>
-          <li>Orebody Analytics</li>
-          <li>Spatial Intelligence</li>
-          <li>Computer Vision</li>
-        </ul>
-      </div>
-      <div class="ft-col">
-        <h4>Contact</h4>
-        <p>Perth, Western Australia</p>
-        <a href="mailto:vnloc@outlook.com">vnloc@outlook.com</a>
-      </div>
+
     </div>
   </footer>
 
@@ -354,16 +362,19 @@
     // ── Footer map ─────────────────────────────────────────────
     (function () {
       const map = L.map('footer-map', {
-        center: [5, -3],
+        center: [-5, -3],
         zoom: 2,
-        zoomControl: false,
+        zoomControl: true,
         scrollWheelZoom: false,
-        doubleClickZoom: false,
-        dragging: false,
+        doubleClickZoom: true,
+        dragging: true,
         attributionControl: false,
         keyboard: false,
-        touchZoom: false
+        touchZoom: true
       });
+
+      // Position zoom controls bottom-right
+      map.zoomControl.setPosition('bottomright');
 
       L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
         subdomains: 'abcd', maxZoom: 19
@@ -372,29 +383,44 @@
       const perth     = [-31.9505,  115.8605];
       const mountView = [ 37.3861, -122.0839];
 
-      // Dotted arc: step through intermediate lat/lng for a smoother curve
-      const pts = [];
-      for (let i = 0; i <= 40; i++) {
-        const t   = i / 40;
-        const lat = perth[0] + t * (mountView[0] - perth[0]);
-        // go west (keeps line within -180 to 180, no dateline split)
-        const lng = perth[1] + t * (mountView[1] - perth[1]);
-        pts.push([lat, lng]);
+      // Quadratic bezier arc — control point dips into South Atlantic
+      // matching the reference curve style
+      const ctrl = [-52, -15];
+      const arcPts = [];
+      for (let i = 0; i <= 80; i++) {
+        const t  = i / 80;
+        const mt = 1 - t;
+        arcPts.push([
+          mt*mt*mountView[0] + 2*mt*t*ctrl[0] + t*t*perth[0],
+          mt*mt*mountView[1] + 2*mt*t*ctrl[1] + t*t*perth[1]
+        ]);
       }
-      L.polyline(pts, {
-        color: '#F5C300', weight: 2, dashArray: '6, 10', opacity: 0.9
+      L.polyline(arcPts, {
+        color: '#F5C300', weight: 2.5, dashArray: '6, 10', opacity: 0.95
       }).addTo(map);
 
-      // Perth — gold
-      L.circleMarker(perth, {
-        radius: 8, fillColor: '#F5C300', color: '#06060E', weight: 2, fillOpacity: 1
-      }).bindTooltip('<b>Perth</b><br>Western Australia', { direction: 'top', className: 'ft-map-tip' })
+      // Custom drop-pin icon
+      function pinIcon(color) {
+        return L.divIcon({
+          className: '',
+          iconSize:   [22, 30],
+          iconAnchor: [11, 30],
+          popupAnchor:[0, -30],
+          html: `<svg width="22" height="30" viewBox="0 0 22 30" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 0C4.9 0 0 4.9 0 11c0 8.3 11 19 11 19S22 19.3 22 11C22 4.9 17.1 0 11 0z" fill="${color}" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+            <circle cx="11" cy="11" r="4.5" fill="rgba(255,255,255,0.85)"/>
+          </svg>`
+        });
+      }
+
+      // Perth — gold pin
+      L.marker(perth, { icon: pinIcon('#F5C300') })
+        .bindTooltip('<b>Perth</b><br>Western Australia', { direction: 'top', className: 'ft-map-tip' })
         .addTo(map);
 
-      // Mountain View — red
-      L.circleMarker(mountView, {
-        radius: 8, fillColor: '#D01012', color: '#06060E', weight: 2, fillOpacity: 1
-      }).bindTooltip('<b>Mountain View</b><br>California, USA', { direction: 'top', className: 'ft-map-tip' })
+      // Mountain View — red pin
+      L.marker(mountView, { icon: pinIcon('#D01012') })
+        .bindTooltip('<b>Mountain View</b><br>California, USA', { direction: 'top', className: 'ft-map-tip' })
         .addTo(map);
     })();
 
