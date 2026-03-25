@@ -67,7 +67,5 @@ git push origin main
 
 ## Contact
 
-- **Director:** Phanindra Kumar Mantha
 - **Email:** vnloc@outlook.com
-- **Phone:** +61 487 042 563
 - **Location:** Perth, Western Australia
